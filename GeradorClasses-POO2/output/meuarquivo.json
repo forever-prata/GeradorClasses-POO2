@@ -1,0 +1,38 @@
+{
+  "visibilidade": "public",
+  "nome": "Pessoa",
+  "atributos": [
+    {
+      "visibilidade": "private",
+      "nome": "nome",
+      "tipo": "String"
+    },
+    {
+      "visibilidade": "public",
+      "nome": "idade",
+      "tipo": "int"
+    },
+    {
+      "visibilidade": "protected",
+      "nome": "email",
+      "tipo": "String"
+    }
+  ],
+  "funcoes": [
+    {
+      "visibilidade": "private",
+      "nome": "demitir",
+      "retorno": "boolean"
+    },
+    {
+      "visibilidade": "public",
+      "nome": "explodir",
+      "retorno": "void"
+    },
+    {
+      "visibilidade": "protected",
+      "nome": "matar",
+      "retorno": "void"
+    }
+  ]
+}
