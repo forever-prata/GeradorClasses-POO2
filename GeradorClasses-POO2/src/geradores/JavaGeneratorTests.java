@@ -1,4 +1,4 @@
-package tests;
+package geradores;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
 
-import geradores.JavaGenerator;
 import jsonRead.LeitorJson;
 
 class JavaGeneratorTests {

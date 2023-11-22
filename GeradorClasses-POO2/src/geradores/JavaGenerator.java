@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class JavaGenerator extends Generator{
 
-	public JavaGenerator(String json) {
+	protected JavaGenerator(String json) {
 		super(json);
 	}
 	
@@ -21,7 +21,7 @@ public class JavaGenerator extends Generator{
 		Gerar(s);
 	}
 	
-	public void Gerar(String clas) {
+	private void Gerar(String clas) {
 	    try {
 	        JSONObject jsonObject = new JSONObject(json);
 	        

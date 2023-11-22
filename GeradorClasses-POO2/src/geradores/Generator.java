@@ -8,10 +8,10 @@ public abstract class Generator {
 	}
 	
 	public void Gerar() {
-		System.out.println("Gerador Genérico");
+		Gerar("");
 	}
 	
-	public void Gerar(String string) {
+	private void Gerar(String string) {
 		System.out.println("Gerador Genérico");
 	}
 

@@ -3,16 +3,16 @@ package tests;
 import java.io.IOException;
 
 import geradores.Generator;
-import geradores.JavaGenerator;
-import jsonRead.LeitorJson;
+import geradores.JavaGeneratorFactory;
+import geradores.GeneratorFactory;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		LeitorJson l = new LeitorJson();
-		Generator g = new JavaGenerator(l.lerArquivo("output/meuarquivo.json"));
-		
-		g.Gerar();
-
+        String caminho = "output/meuarquivo.json";
+        GeneratorFactory factory = new JavaGeneratorFactory();
+        Generator generator = factory.createGenerator(caminho);
+        
+        generator.Gerar();
 	}
 }
