@@ -17,7 +17,6 @@ public class JavaGenerator extends Generator{
 	
 	public void Gerar() {
 		String s = this.formatar();
-		
 		Gerar(s);
 	}
 	
