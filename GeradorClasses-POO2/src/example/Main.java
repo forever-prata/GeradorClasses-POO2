@@ -12,5 +12,6 @@ public class Main {
         Generator generator = factory.createGenerator(caminho);
         
         generator.Gerar();
+        //
 	}
 }
