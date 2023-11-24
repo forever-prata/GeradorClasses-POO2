@@ -21,4 +21,16 @@ class PythonGeneratorTests {
 	      assertTrue(new File(expectedFilePath).exists());
 	  }
 
+	  @Test
+	  void testGerarInvalidJsonPath() {
+	      String invalidJsonPath = "invalidpath.json";
+
+	      assertThrows(IOException.class, () -> {
+	          LeitorJson leitor = new LeitorJson();
+	          String json = leitor.lerArquivo(invalidJsonPath);
+
+	          Generator generator = new PhpGenerator(json);
+	          generator.Gerar();
+	      }, "IOException should be thrown for an invalid JSON file path.");
+	  }
 }

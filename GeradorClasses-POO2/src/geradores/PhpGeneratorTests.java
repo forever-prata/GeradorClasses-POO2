@@ -9,15 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import jsonRead.LeitorJson;
 
-class JavaGeneratorTests {
-	
+class PhpGeneratorTests {
+
 	  @Test
 	  void testGerar() throws IOException {
 		  LeitorJson leitor = new LeitorJson();
 	      String json = leitor.lerArquivo("output/example.json");
-	      Generator generator = new JavaGenerator(json);
+	      Generator generator = new PhpGenerator(json);
 	      generator.Gerar();
-	      String expectedFilePath = "output/Pessoa.java";
+	      String expectedFilePath = "output/Pessoa.php";
 	      assertTrue(new File(expectedFilePath).exists());
 	  }
 	  
@@ -33,4 +33,5 @@ class JavaGeneratorTests {
 	          generator.Gerar();
 	      }, "IOException should be thrown for an invalid JSON file path.");
 	  }
+
 }
