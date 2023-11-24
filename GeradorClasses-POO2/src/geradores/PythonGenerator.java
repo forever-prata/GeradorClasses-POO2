@@ -51,8 +51,51 @@ public class PythonGenerator extends Generator{
 		builder.append(nomeClasse);
 		builder.append(":\n\n");
 		
-		//Declaracao de atributos (tipagem descartada)
         JSONArray atributosArray = jsonObject.getJSONArray("atributos");
+        
+        //Construtor
+        builder.append("\tdef __init__ (self, ");
+        
+        int totalAtributos = atributosArray.length();
+        int contador = 0;
+            
+        for (Object atributoObj : atributosArray) {
+     	   if (atributoObj instanceof JSONObject) {
+     		   JSONObject atributo = (JSONObject) atributoObj;
+         	   String nome = atributo.getString("nome");
+         	   builder.append(nome+"=None");
+
+         	   if (++contador < totalAtributos) {
+         		   builder.append(", ");
+         	   }
+         	}
+        }
+        builder.append("):\n");
+        
+        for (Object atributoObj : atributosArray) {
+      	   if (atributoObj instanceof JSONObject) {
+      		   JSONObject atributo = (JSONObject) atributoObj;
+          	   String nome = atributo.getString("nome");
+	           String visibilidade = atributo.getString("visibilidade");
+	           String visibilidadeTok = "";
+	           switch (visibilidade) {
+			   case "private": {
+				   visibilidadeTok = "__";
+				   break;
+			   }case "protected":{
+				   visibilidadeTok = "_";
+				   break;
+			   }case "public":{
+				   visibilidadeTok = "";
+				   break;
+			   }
+	           }
+          	   builder.append("\t\tself."+visibilidadeTok+nome+"="+nome+"\n");
+          	}
+         }
+        
+        builder.append("\n");
+        //Getters e Setters
         for (Object atributoObj : atributosArray) {
             if (atributoObj instanceof JSONObject) {
                 JSONObject atributo = (JSONObject) atributoObj;
@@ -71,11 +114,33 @@ public class PythonGenerator extends Generator{
 					break;
 				}
                 }
-                builder.append("\t"+visibilidadeTok+nome+" = None\n");
+                builder.append("\tdef get_"+nome+"(self):\n\t\t return self."+visibilidadeTok+nome+"\n\n");
             }
         }
-		
-		
+        
+        
+        for (Object atributoObj : atributosArray) {
+            if (atributoObj instanceof JSONObject) {
+                JSONObject atributo = (JSONObject) atributoObj;
+                String visibilidade = atributo.getString("visibilidade");
+                String visibilidadeTok = "";
+                switch (visibilidade) {
+				case "private": {
+					visibilidadeTok = "__";
+					break;
+				}case "protected":{
+					visibilidadeTok = "_";
+					break;
+				}case "public":{
+					visibilidadeTok = "";
+					break;
+				}
+                }
+                String nome = atributo.getString("nome");
+                builder.append("\tdef set_"+nome+"(self, "+nome+"):\n\t\tself."+visibilidadeTok+nome+" = "+nome+"\n\n");
+            }
+        }
+        
 		return builder.toString();
 	}
 }
