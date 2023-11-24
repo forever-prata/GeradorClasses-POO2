@@ -75,7 +75,7 @@ public class JavaGenerator extends Generator{
                String nomeMaiusculo = nome.substring(0, 1).toUpperCase();
                String restoNome = nome.substring(1);
                String nomeFormatado = nomeMaiusculo + restoNome;
-               builder.append("\t public "+tipo+" get"+nomeFormatado+"(){\n\t\t return this."+nome+";\n\t}\n\n");
+               builder.append("\tpublic "+tipo+" get"+nomeFormatado+"(){\n\t\t return this."+nome+";\n\t}\n\n");
            }
        }
        
@@ -87,7 +87,7 @@ public class JavaGenerator extends Generator{
                String nomeMaiusculo = nome.substring(0, 1).toUpperCase();
                String restoNome = nome.substring(1);
                String nomeFormatado = nomeMaiusculo + restoNome;
-               builder.append("\t public void set"+nomeFormatado+"("+tipo+" "+nome+"){\n\t\t this."+nome+"= "+nome+";\n\t}\n\n");
+               builder.append("\tpublic void set"+nomeFormatado+"("+tipo+" "+nome+"){\n\t\t this."+nome+"= "+nome+";\n\t}\n\n");
            }
        }
        

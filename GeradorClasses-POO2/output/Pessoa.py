@@ -23,3 +23,12 @@ class Pessoa:
 	def set_email(self, email):
 		self._email = email
 
+	def __demitir(self):
+		return None
+
+	def explodir(self):
+		return None
+
+	def _matar(self):
+		return None
+

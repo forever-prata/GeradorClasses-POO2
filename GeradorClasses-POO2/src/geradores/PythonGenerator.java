@@ -141,6 +141,30 @@ public class PythonGenerator extends Generator{
             }
         }
         
+        //Funcoes
+        JSONArray funcoesArray = jsonObject.getJSONArray("funcoes");
+        for (Object funcoesObj : funcoesArray) {
+            if (funcoesObj instanceof JSONObject) {
+                JSONObject funcao = (JSONObject) funcoesObj;
+                String nome = funcao.getString("nome");
+                String visibilidade = funcao.getString("visibilidade");
+                String visibilidadeTok = "";
+                switch (visibilidade) {
+				case "private": {
+					visibilidadeTok = "__";
+					break;
+				}case "protected":{
+					visibilidadeTok = "_";
+					break;
+				}case "public":{
+					visibilidadeTok = "";
+					break;
+				}
+                }
+                builder.append("\tdef "+visibilidadeTok+nome+"(self):\n\t\treturn None\n\n");
+            }
+        }
+        
 		return builder.toString();
 	}
 }

@@ -9,15 +9,16 @@ import org.junit.jupiter.api.Test;
 
 import jsonRead.LeitorJson;
 
-class JavaGeneratorTests {
-	
+class PythonGeneratorTests {
+
 	  @Test
 	  void testGerar() throws IOException {
 		  LeitorJson leitor = new LeitorJson();
 	      String json = leitor.lerArquivo("output/example.json");
-	      Generator generator = new JavaGenerator(json);
+	      Generator generator = new PythonGenerator(json);
 	      generator.Gerar();
-	      String expectedFilePath = "output/Pessoa.java";
+	      String expectedFilePath = "output/Pessoa.py";
 	      assertTrue(new File(expectedFilePath).exists());
 	  }
+
 }
