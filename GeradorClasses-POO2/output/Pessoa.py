@@ -31,4 +31,3 @@ class Pessoa:
 
 	def _matar(self):
 		return None
-

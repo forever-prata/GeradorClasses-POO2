@@ -12,10 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GeradorJson {
+public class JsonGenerator {
 
     public static void main(String[] args) {
-        Map<String, Object> modeloClasse = new LinkedHashMap<>(); // Use LinkedHashMap for maintaining order
+        Map<String, Object> modeloClasse = new LinkedHashMap<>();
         modeloClasse.put("nome", "Pessoa");
         modeloClasse.put("visibilidade", "public");
 
@@ -45,13 +45,13 @@ public class GeradorJson {
     }
 
     private static String convertModeloClasseToJson(Map<String, Object> modeloClasse) {
-        JSONObject jsonClasse = new JSONObject(modeloClasse); // Use JSONObject constructor with Map for maintaining order
+        JSONObject jsonClasse = new JSONObject(modeloClasse);
 
-        return jsonClasse.toString(2); // The second argument specifies the number of spaces for indentation
+        return jsonClasse.toString(2);
     }
 
     private static void adicionarAtributo(List<Map<String, Object>> atributos, String nome, String tipo, String visibilidade) {
-        Map<String, Object> atributo = new LinkedHashMap<>(); // Use LinkedHashMap for maintaining order
+        Map<String, Object> atributo = new LinkedHashMap<>();
         atributo.put("nome", nome);
         atributo.put("tipo", tipo);
         atributo.put("visibilidade", visibilidade);
@@ -59,7 +59,7 @@ public class GeradorJson {
     }
 
     private static void adicionarFuncao(List<Map<String, Object>> funcoes, String nome, String retorno, String visibilidade) {
-        Map<String, Object> funcao = new LinkedHashMap<>(); // Use LinkedHashMap for maintaining order
+        Map<String, Object> funcao = new LinkedHashMap<>();
         funcao.put("nome", nome);
         funcao.put("retorno", retorno);
         funcao.put("visibilidade", visibilidade);

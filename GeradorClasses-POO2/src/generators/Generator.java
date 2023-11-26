@@ -1,4 +1,4 @@
-package geradores;
+package generators;
 
 public abstract class Generator {
 	protected String json;
@@ -7,11 +7,11 @@ public abstract class Generator {
 		this.setJson(json);
 	}
 	
-	public void Gerar() {
-		Gerar("");
+	public void Generate() {
+		Generate("");
 	}
 	
-	private void Gerar(String string) {
+	private void Generate(String string) {
 		System.out.println("Gerador Genérico");
 	}
 

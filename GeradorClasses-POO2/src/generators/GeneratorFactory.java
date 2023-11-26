@@ -1,4 +1,4 @@
-package geradores;
+package generators;
 
 import java.io.IOException;
 
