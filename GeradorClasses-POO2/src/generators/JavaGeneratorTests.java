@@ -8,9 +8,13 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 import jsonRead.JsonReader;
-
+/**
+ * Classe para testar a classe JavaGenerator
+ */
 class JavaGeneratorTests {
-	
+	/**
+	 * teste que verifica se um arquivo Pessoa.java e gerado apartir de um json valido
+	 */
 	  @Test
 	  void testGerar() throws IOException {
 		  JsonReader leitor = new JsonReader();
@@ -20,7 +24,9 @@ class JavaGeneratorTests {
 	      String expectedFilePath = "output/Pessoa.java";
 	      assertTrue(new File(expectedFilePath).exists());
 	  }
-	  
+		/**
+		 * teste que verifica se um arquivo Pessoa.java e gerado apartir de um json invalido
+		 */
 	  @Test
 	  void testGerarInvalidJsonPath() {
 	      String invalidJsonPath = "invalidpath.json";
