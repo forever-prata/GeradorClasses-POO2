@@ -43,7 +43,7 @@ const categories = {
 };
 const highlight = "<span class='result-highlight'>$&</span>";
 const NO_MATCH = {};
-const MAX_RESULTS = 300;
+const MAX_RESULTS = 500;
 function checkUnnamed(name, separator) {
     return name === "<Unnamed>" || !name ? "" : name + separator;
 }
@@ -157,21 +157,30 @@ function createMatcher(term, camelCase) {
     re.upperCase = upperCase;
     return re;
 }
-function findMatch(matcher, input, startOfName, endOfName) {
+function analyzeMatch(matcher, input, startOfName, category) {
     var from = startOfName;
     matcher.lastIndex = from;
     var match = matcher.exec(input);
-    // Expand search area until we get a valid result or reach the beginning of the string
-    while (!match || match.index + match[0].length < startOfName || endOfName < match.index) {
-        if (from === 0) {
-            return NO_MATCH;
-        }
+    while (!match && from > 1) {
         from = input.lastIndexOf(".", from - 2) + 1;
         matcher.lastIndex = from;
         match = matcher.exec(input);
     }
+    if (!match) {
+        return NO_MATCH;
+    }
     var boundaries = [];
     var matchEnd = match.index + match[0].length;
+    var leftParen = input.indexOf("(");
+    // exclude peripheral matches
+    if (category !== "modules" && category !== "searchTags") {
+        if (leftParen > -1 && leftParen < match.index) {
+            return NO_MATCH;
+        } else if (startOfName - 1 >= matchEnd) {
+            return NO_MATCH;
+        }
+    }
+    var endOfName = leftParen > -1 ? leftParen : input.length;
     var score = 5;
     var start = match.index;
     var prevEnd = -1;
@@ -211,6 +220,7 @@ function findMatch(matcher, input, startOfName, endOfName) {
     return {
         input: input,
         score: score,
+        category: category,
         boundaries: boundaries
     };
 }
@@ -275,16 +285,13 @@ function doSearch(request, response) {
             var useQualified = useQualifiedName(category);
             var input = useQualified ? qualifiedName : simpleName;
             var startOfName = useQualified ? prefix.length : 0;
-            var endOfName = category === "members" && input.indexOf("(", startOfName) > -1
-                ? input.indexOf("(", startOfName) : input.length;
-            var m = findMatch(matcher.plainMatcher, input, startOfName, endOfName);
+            var m = analyzeMatch(matcher.plainMatcher, input, startOfName, category);
             if (m === NO_MATCH && matcher.camelCaseMatcher) {
-                m = findMatch(matcher.camelCaseMatcher, input, startOfName, endOfName);
+                m = analyzeMatch(matcher.camelCaseMatcher, input, startOfName, category);
             }
             if (m !== NO_MATCH) {
                 m.indexItem = item;
                 m.prefix = prefix;
-                m.category = category;
                 if (!useQualified) {
                     m.input = qualifiedName;
                     m.boundaries = m.boundaries.map(function(b) {
@@ -293,11 +300,11 @@ function doSearch(request, response) {
                 }
                 matches.push(m);
             }
-            return true;
+            return matches.length < maxResults;
         });
         return matches.sort(function(e1, e2) {
             return e2.score - e1.score;
-        }).slice(0, maxResults);
+        });
     }
 
     var result = searchIndex(moduleSearchIndex, "modules")

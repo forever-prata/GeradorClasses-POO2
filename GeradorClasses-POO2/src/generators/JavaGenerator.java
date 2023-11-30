@@ -8,18 +8,30 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/**
+ * Classe responsavel por gerar arquivos .java
+ */
 public class JavaGenerator extends Generator{
-
+    /**
+     * Construtor da classe JavaGenerator.
+     * 
+     * @param json String gerada a partir da leitura do JSON de entrada.
+     */
 	protected JavaGenerator(String json) {
 		super(json);
 	}
-	
+    /**
+     * Metodo chamado pelo usuario para gerar uma classe .java
+     */
 	public void Generate() {
 		String s = this.Format();
 		Generate(s);
 	}
-	
+    /**
+     * Metodo chamado internamente para gerar uma classe .java
+     * 
+     * @param clas String formatada apartir do json de entrada
+     */
 	private void Generate(String clas) {
 	    try {
 	        JSONObject jsonObject = new JSONObject(json);
@@ -40,7 +52,11 @@ public class JavaGenerator extends Generator{
 			e.printStackTrace();
 		}
 	}
-	
+    /**
+     * Metodo chamado internamente para formatar o json de entrada
+     * 
+     * @return String completa que representa uma classe .java
+     */
 	private String Format() {
 		JSONObject jsonObject = new JSONObject(json);
 		StringBuilder builder = new StringBuilder();

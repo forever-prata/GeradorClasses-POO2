@@ -27,6 +27,8 @@ public abstract class Generator {
 	
     /**
      * Metodo chamado internamente com json formatado
+     * 
+     * @param string String formatada apartir do json de entrada
      */
 	private void Generate(String string) {
 		System.out.println("Gerador Generico");
@@ -34,6 +36,8 @@ public abstract class Generator {
 	
     /**
      * Metodo utilizado para formatar o conteudo do json, retornando uma grande String que sera escrita em um arquivo gerado
+     * 
+     * @return String completa que representa uma classe
      */
 	private String Format() {
 		return null;
