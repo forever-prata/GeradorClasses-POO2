@@ -42,7 +42,7 @@ public class PythonGenerator extends Generator{
 	}
 	
 	private String Format() {
-		//Visibilidade é descartada no cabecalho
+		//Visibilidade e descartada no cabecalho
 		JSONObject jsonObject = new JSONObject(json);
 		StringBuilder builder = new StringBuilder();
 		String className = jsonObject.getString("nome");
